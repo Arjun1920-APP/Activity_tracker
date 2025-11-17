@@ -1,0 +1,235 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #fafafa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Use min-height to ensure it takes full height but can expand */
+    margin: 0;
+    padding: 20px; /* Add some padding for smaller screens */
+    box-sizing: border-box; /* Include padding in element's total width and height */
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    /* Ensure the container doesn't force scrollbars if content is slightly larger */
+    overflow-y: auto; 
+}
+
+/* Card style similar to screenshot */
+.card {
+    background: #fff;
+    padding: 30px 40px; /* Slightly adjusted padding */
+    border-radius: 20px;
+    border: 2px solid #D30000; /* Ambit red */
+    text-align: center;
+    max-width: 580px; /* Increased max-width for better layout */
+    width: 100%; /* Ensure it fills max-width */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15); /* Slightly stronger shadow */
+    animation: fadeIn 0.8s ease;
+    display: flex;
+    flex-direction: column; /* Arrange content vertically */
+    align-items: center; /* Center items horizontally within the card */
+}
+
+.logo {
+    width: 140px; /* Slightly smaller logo for better fit */
+    margin: 0 auto 25px auto; /* Centered, with more space below */
+}
+
+.status-section {
+    display: flex;
+    align-items: center; /* Vertically align tick and text */
+    justify-content: center; /* Center horizontally within its space */
+    margin-bottom: 25px; /* Space below the status line */
+    gap: 15px; /* Space between tick and text */
+}
+
+.main-title {
+    font-size: 32px; /* Larger title */
+    font-weight: 700;
+    color: #B30000; /* Deeper red */
+    margin: 0; /* Remove default margins */
+}
+
+/* Checkmark animation */
+.checkmark-wrapper {
+    width: 60px; /* Size of the tick circle */
+    height: 60px;
+    position: relative;
+    transform: rotate(45deg); /* Rotate the wrapper to make corners triangular */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Hide parts of circle outside the rotated square */
+}
+
+.checkmark {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%; /* Still a circle visually within the rotated wrapper */
+    display: block;
+    stroke-width: 4; /* Thicker stroke */
+    stroke: #D30000; /* Red stroke */
+    stroke-miterlimit: 10;
+    margin: 10% auto;
+    box-shadow: inset 0px 0px 0px #D30000; /* Red shadow for the circle */
+    animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+    position: absolute; /* Position within the rotated wrapper */
+    top: 0;
+    left: 0;
+    transform: rotate(-45deg); /* Counter-rotate the SVG content to be upright */
+}
+
+.checkmark__circle {
+    stroke-dasharray: 166;
+    stroke-dashoffset: 166;
+    stroke-width: 4;
+    stroke-miterlimit: 10;
+    stroke: #D30000;
+    fill: none;
+    animation: stroke .6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+
+.checkmark__check {
+    transform-origin: 50% 50%;
+    stroke-dasharray: 48;
+    stroke-dashoffset: 48;
+    animation: stroke .3s cubic-bezier(0.65, 0, 0.45, 1) .8s forwards;
+    stroke: #ffffff; /* White tick */
+    stroke-width: 4;
+}
+
+@keyframes stroke {
+    100% {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes fill {
+    100% {
+        box-shadow: inset 0px 0px 0px 30px #D30000; /* Fill with red */
+    }
+}
+
+@keyframes scale {
+    0%, 100% {
+        transform: rotate(-45deg) scale(1);
+    }
+    50% {
+        transform: rotate(-45deg) scale(0.9);
+    }
+}
+
+/* Text styles */
+.greeting-text {
+    font-size: 19px; /* Slightly larger text */
+    color: #333;
+    margin-bottom: 8px; /* Less space between greeting and details intro */
+    line-height: 1.4;
+}
+
+.owner-name {
+    font-weight: 700;
+    color: #D30000; /* Highlight owner name */
+}
+
+.details-intro {
+    font-size: 17px;
+    color: #555;
+    margin-bottom: 15px;
+    /* font-style: italic; */
+}
+
+.task-details-list {
+    list-style: none; /* Remove default bullet points */
+    padding: 0;
+    margin: 0 0 25px 0; /* Margin below the list */
+    text-align: left; /* Align list items to the left */
+    width: 100%; /* Ensure list takes full width for alignment */
+    max-width: 350px; /* Constrain width of bullet points */
+}
+
+.task-details-list li {
+    display: flex; /* Use flexbox for bullet alignment */
+    align-items: flex-start; /* Align text from the top */
+    margin-bottom: 8px; /* Space between list items */
+    font-size: 16px;
+    color: #333;
+}
+
+.bullet-icon {
+    display: inline-block;
+    width: 8px; /* Size of the custom bullet */
+    height: 8px;
+    min-width: 8px; /* Ensure it doesn't shrink */
+    background-color: #D30000; /* Red bullet */
+    border-radius: 50%; /* Circular bullet */
+    margin-right: 10px; /* Space between bullet and text */
+    margin-top: 7px; /* Adjust vertical alignment of bullet */
+}
+
+.task-details-list .label {
+    font-weight: 600;
+    margin-right: 5px; /* Space between label and value */
+}
+
+.task-details-list .value {
+    font-weight: 400; /* Normal weight for value */
+    flex-grow: 1; /* Allow value to take up remaining space */
+}
+
+.closing-text {
+    margin-top: 20px;
+    color: #777;
+    font-size: 14px;
+}
+
+/* Fade animation */
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 1s forwards ease-out;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .card {
+        padding: 25px 25px;
+        border-radius: 15px;
+    }
+
+    .logo {
+        width: 120px;
+    }
+
+    .main-title {
+        font-size: 26px;
+    }
+
+    .checkmark-wrapper {
+        width: 50px;
+        height: 50px;
+    }
+
+    .greeting-text {
+        font-size: 17px;
+    }
+
+    .task-details-list {
+        max-width: 100%; /* Allow list to take full width on small screens */
+    }
+    
+    .status-section {
+        flex-direction: column; /* Stack tick and title vertically on small screens */
+        gap: 10px;
+    }
+}

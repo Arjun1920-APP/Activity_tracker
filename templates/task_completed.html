@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task Completed</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <div class="card fade-in">
+        <img src="/static/Ambit logo.jpg" class="logo" alt="Ambit Logo">
+
+        <div class="status-section">
+            <div class="checkmark-wrapper">
+                <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                    <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                    <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                </svg>
+            </div>
+            <h2 class="main-title">Task Completed</h2>
+        </div>
+
+        <p class="greeting-text">
+            Thank you <span class="owner-name">{{ owner }}</span>! Your task has now been successfully completed.
+        </p>
+        <p class="details-intro">
+           The details of your task are provided below:
+        </p>
+
+        <ul class="task-details-list">
+            <li><span class="bullet-icon"></span> <span class="label">Task ID:</span> <span class="value">{{ task_id }}</span></li>
+            <li><span class="bullet-icon"></span> <span class="label">Task Name:</span> <span class="value">{{ task_name }}</span></li>
+            <li><span class="bullet-icon"></span> <span class="label">Owner:</span> <span class="value">{{ owner }}</span></li>
+        </ul>
+
+        <p class="closing-text">
+            This window will close automatically in 10 seconds.
+        </p>
+
+    </div>
+</div>
+
+<script>
+    setTimeout(() => {
+        window.close();
+    }, 10000); // 10 seconds
+</script>
+
+</body>
+</html>
