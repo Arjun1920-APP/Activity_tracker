@@ -74,6 +74,8 @@ def health():
 def complete_task():
     # Validate token
     token = request.args.get("token", "")
+    print("SECRET_TOKEN:", repr(SECRET_TOKEN))
+    print("URL token:", repr(token))
     if not SECRET_TOKEN:
         logging.error("COMPLETE_API_TOKEN env var not set.")
         return jsonify({"error": "Server misconfigured."}), 500
