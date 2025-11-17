@@ -13,6 +13,24 @@ from datetime import timedelta
 logging.basicConfig(level=logging.INFO, format="%(asctime)s — %(levelname)s — %(message)s")
 app = Flask(__name__)
 
+def write_google_credentials():
+    cred_json = os.environ.get("GOOGLE_CREDENTIALS_JSON")
+    token_json = os.environ.get("GOOGLE_TOKEN_JSON")
+
+    if cred_json:
+        logging.info("Writing credentials.json from environment")
+        with open("credentials.json", "w") as f:
+            f.write(cred_json)
+
+    if token_json:
+        logging.info("Writing token.json from environment")
+        with open("token.json", "w") as f:
+            f.write(token_json)
+
+write_google_credentials()   # <-- runs automatically both on Render & local
+
+
+
 # Config via env
 CLIENT_SECRET_FILE = os.environ.get("CLIENT_SECRET_FILE", "./credentials.json")
 TOKEN_FILE = os.environ.get("TOKEN_FILE", "./token.json")
