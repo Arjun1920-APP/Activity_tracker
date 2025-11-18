@@ -36,7 +36,7 @@ COMPLETE_API_TOKEN = os.environ.get("COMPLETE_API_TOKEN", "")
 
 GMAIL_USER = "gpchr@ambit.co"          # Gmail account to send emails
 GMAIL_APP_PASSWORD = "rfnd mmbe iyno rnaf"   # App password (or SMTP password)
-
+CC_EMAIL = "pulkit.handa@ambit.co"
 # Business rules
 REMINDER_OFFSET_BUSINESS_DAYS = 3
 OVERDUE_REMINDER_DELAY_DAYS = 2  # single overdue reminder sent once when today >= DueDate + this many days
@@ -329,7 +329,7 @@ GPC HR TEAM
             logging.info("[DRY RUN] Would send email: To=%s Subject=%s", to_email, subject)
             return True
         try:
-            yag.send(to=to_email, subject=subject, contents=body)
+            yag.send(to=[to_email],cc=[CC_EMAIL], subject=subject, contents=body)
             logging.info("Email sent to %s", to_email)
             return True
         except Exception as e:
