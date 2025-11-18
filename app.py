@@ -84,9 +84,21 @@ def send_completion_email(to_email, owner, task_name, completion_date):
     except Exception as e:
         logging.exception("Failed to send completion mail: %s", e)
 
+@app.route('/')
+def home():
+    return "Service is running!"
+
 @app.route("/health", methods=["GET"])
 def health():
     return "OK", 200
+
+@app.route("/test_template")
+def test_template():
+    return render_template("task_completed.html",
+                           task_id="TEST",
+                           task_name="Demo Task",
+                           owner="Demo Owner",
+                           completed_on="2025-11-18")
 
 @app.route("/complete_task", methods=["GET"])
 def complete_task():
@@ -214,5 +226,5 @@ def complete_task():
  
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
+    port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
