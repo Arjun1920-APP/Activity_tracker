@@ -11,7 +11,7 @@ from dateutil.relativedelta import relativedelta
 from datetime import timedelta
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s — %(levelname)s — %(message)s")
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates', static_folder='static')
 
 def write_google_credentials():
     cred_json = os.environ.get("GOOGLE_CREDENTIALS_JSON")
