@@ -32,7 +32,7 @@ COMPLETE_URL_BASE = os.environ.get(
     "https://activity-tracker-arjd.onrender.com/complete_task"
 )
 
-COMPLETE_API_TOKEN = os.environ.get("COMPLETE_API_TOKEN", "")
+COMPLETE_API_TOKEN = os.environ.get("COMPLETE_API_TOKEN", "1234")
 
 GMAIL_USER = "gpchr@ambit.co"          # Gmail account to send emails
 GMAIL_APP_PASSWORD = "rfnd mmbe iyno rnaf"   # App password (or SMTP password)
