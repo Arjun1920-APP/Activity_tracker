@@ -29,7 +29,7 @@ SHEET_NAME = "Activity Tracker"        # Your Google Sheet name
 WORKSHEET_NAME = "Task_Tracker"        # Worksheet inside the sheet
 COMPLETE_URL_BASE = os.environ.get(
     "COMPLETE_URL_BASE",
-    "https://your-render-url.onrender.com/complete_task"
+    "https://activity-tracker-arjd.onrender.com/complete_task"
 )
 
 COMPLETE_API_TOKEN = os.environ.get("COMPLETE_API_TOKEN", "")
