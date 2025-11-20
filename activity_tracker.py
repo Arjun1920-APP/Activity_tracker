@@ -244,7 +244,53 @@ def main(dry_run=False):
                 except Exception:
                     logging.warning("Could not compute DueDate for row %d; invalid DueDay: %s", i+2, due_day)
         # --- END UPDATED LOGIC ---
-        
+        # ---------------- WEEKLY LOGIC (3 BUSINESS-DAY REMINDER) ----------------
+    if freq in ("weekly", "week"):
+        due_day = str(row.get("DueDay") or "").strip()
+
+    # Map weekday text → number
+        weekday_map = {
+        "monday": 0, "tuesday": 1, "wednesday": 2, "thursday": 3,
+        "friday": 4, "saturday": 5, "sunday": 6
+        }
+
+    # Determine target weekday
+        try:
+            if due_day.isdigit():
+                target_wd = int(due_day)
+            else:
+                target_wd = weekday_map[due_day.lower()]
+        except Exception:
+            logging.warning(f"Invalid weekly DueDay for row {i+2}: {due_day}")
+            target_wd = None
+
+        if target_wd is not None:
+            today_wd = today.weekday()
+
+        # Compute the upcoming weekday
+            if today_wd <= target_wd:
+                next_due = today + timedelta(days=target_wd - today_wd)
+            else:
+                next_due = today + timedelta(days=(7 - (today_wd - target_wd)))
+
+        # Reset weekly if due date missing or in past
+            if pd.isna(existing_due) or pd.to_datetime(existing_due).date() < today:
+                df.at[i, 'DueDate'] = pd.Timestamp(next_due)
+
+            # New rule → reminder = due date - 3 business days
+                reminder_date = subtract_business_days(next_due, REMINDER_OFFSET_BUSINESS_DAYS)
+                df.at[i, 'ReminderDate'] = pd.Timestamp(reminder_date)
+
+                df.at[i, 'Status'] = "Pending"
+                df.at[i, 'LastReminderSent'] = pd.NaT
+
+                changed_row_indices.add(i)
+
+                logging.info(
+                    f"Row {i+2}: weekly reset -> DueDate={next_due}, ReminderDate={reminder_date}"
+                )  
+
+
         # Compute status (runs on every iteration, using the newly computed dates if updated above)
         status = compute_status(df.loc[i], today)
         df.at[i, 'Status'] = status
